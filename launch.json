@@ -1,0 +1,22 @@
+{
+  "kind": "evm_project",
+  "token": {
+    "contract": "LaunchToken",
+    "name": "Launch Token",
+    "symbol": "TOKEN",
+    "decimals": 18
+  },
+  "contracts": [
+    {
+      "contract": "TokenVesting",
+      "constructorArgs": ["$token"]
+    }
+  ],
+  "pool": {
+    "pairedCurrency": "0x0000000000000000000000000000000000000000",
+    "fee": 3000,
+    "tickSpacing": 60,
+    "initialPrice": "79228162514264337593543950336"
+  },
+  "notes": "LaunchToken has no constructor arguments. TokenVesting is configured entirely by its nonpayable constructor with the launch token address; no initialization calls or owner are required. Anyone may approve and deposit tokens to create an irrevocable schedule for a beneficiary. Start and cliff are absolute Unix timestamps; duration is a positive number of seconds measured from start, with start <= cliff <= start + duration. Vesting accrues linearly from start, becomes claimable at the cliff, and releases all remaining rounding dust at the end. Only the beneficiary may claim, and payouts go to that beneficiary. Schedules cannot be revoked or edited; there are no administrative, upgrade, or recovery powers. Direct token transfers create no schedule and cannot be recovered. The factory supplies the LP, MerkleDistributor, and initialization-only pool guard. Existing tests cover token metadata and transfers, factory deployment, schedule funding, authorization, timing boundaries, rounding, irrevocability, failed transfers, reentrancy, fuzzed claims, and stateful accounting invariants."
+}
